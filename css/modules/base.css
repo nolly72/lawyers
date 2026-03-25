@@ -1,0 +1,32 @@
+@import url('https://fonts.googleapis.com');
+
+:root {
+    --gold: #C5A059;
+    --dark: #0A0A0A;
+    --gray: #161616;
+    --light: #FFFFFF;
+}
+
+html { scroll-behavior: smooth; }
+* { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Montserrat', sans-serif; }
+
+body {
+    background-color: var(--dark);
+    color: var(--light);
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+}
+
+.section { 
+    padding: 120px 8%; 
+    opacity: 0; 
+    transform: translateY(40px);
+    transition: all 1.2s ease-out;
+}
+
+.section.visible { opacity: 1; transform: translateY(0); }
+
+.title { 
+    text-align: center; color: var(--gold); font-size: 52px; 
+    font-weight: 900; margin-bottom: 70px; text-transform: uppercase;
+}

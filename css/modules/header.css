@@ -1,0 +1,20 @@
+nav {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 35px 8%; background: rgba(10, 10, 10, 0.98);
+    position: sticky; top: 0; z-index: 1000;
+    border-bottom: 1px solid rgba(197, 160, 89, 0.15);
+    backdrop-filter: blur(10px);
+}
+
+.logo { 
+    color: var(--gold); font-size: 32px; font-weight: 900; 
+    letter-spacing: 4px; text-transform: uppercase;
+}
+
+.nav-links a { 
+    color: var(--light); text-decoration: none; margin: 0 25px; 
+    font-size: 15px; font-weight: 800; text-transform: uppercase;
+    transition: 0.3s ease;
+}
+
+.nav-links a:hover { color: var(--gold); }

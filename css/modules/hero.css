@@ -1,0 +1,18 @@
+.hero {
+    height: 95vh; display: flex; flex-direction: column;
+    justify-content: center; align-items: center; text-align: center;
+    padding: 0 10%;
+    background: linear-gradient(rgba(0,0,0,0.85), rgba(0,0,0,0.85)), 
+                url('https://images.unsplash.com');
+    background-size: cover; background-attachment: fixed;
+}
+
+.hero h1 { 
+    font-size: 78px; font-weight: 900; font-family: 'Playfair Display', serif;
+    color: var(--gold); margin-bottom: 30px; line-height: 1.1;
+}
+
+.hero p { 
+    font-size: 26px; font-weight: 500; color: #dfdfdf;
+    max-width: 900px; letter-spacing: 1px;
+}
