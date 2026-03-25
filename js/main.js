@@ -7,22 +7,18 @@ document.addEventListener('DOMContentLoaded', () => {
     const lawyerList = document.getElementById('lawyer-list');
     
     if (lawyerList) {
-        lawyerList.innerHTML = ''; // Очищаем контейнер перед заполнением
-        
-        lawyers.forEach(lawyer => {
-            const card = `
-                <div class="lawyer-card reveal">
-                    <div class="photo-wrap">
-                        <img src="${lawyer.image}" alt="${lawyer.name}" onerror="this.src='https://via.placeholder.com'">
-                    </div>
-                    <span>${lawyer.role}</span>
-                    <h3>${lawyer.name}</h3>
-                    <p>${lawyer.bio}</p>
-                    <div class="lawyer-case"><strong>Кейс:</strong> ${lawyer.case}</div>
+        // Используем map и join для более чистого рендеринга
+        lawyerList.innerHTML = lawyers.map(lawyer => `
+            <div class="lawyer-card reveal">
+                <div class="photo-wrap">
+                    <img src="${lawyer.image}" alt="${lawyer.name}" onerror="this.src='https://via.placeholder.com'">
                 </div>
-            `;
-            lawyerList.innerHTML += card;
-        });
+                <span>${lawyer.role}</span>
+                <h3>${lawyer.name}</h3>
+                <p>${lawyer.bio}</p>
+                <div class="lawyer-case"><strong>Кейс:</strong> ${lawyer.case}</div>
+            </div>
+        `).join('');
     }
 
     // 2. КАЛЬКУЛЯТОР ПОШЛИНЫ
@@ -38,9 +34,25 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // 3. АНИМАЦИЯ ПОЯВЛЕНИЯ ПРИ СКРОЛЛЕ (REVEAL)
+    // 3. ОБРАБОТКА ФОРМЫ ОБРАТНОЙ СВЯЗИ (НОВОЕ)
+    const leadForm = document.getElementById('lead-form');
+    if (leadForm) {
+        leadForm.addEventListener('submit', (e) => {
+            e.preventDefault(); // Чтобы страница не перезагружалась
+            const name = document.getElementById('user-name').value;
+            const phone = document.getElementById('user-phone').value;
+            
+            // Здесь будет имитация отправки
+            console.log(`Заявка: ${name}, Телефон: ${phone}`);
+            
+            alert(`Благодарим, ${name}! Ваша заявка на экспресс-анализ принята. Наш адвокат свяжется с вами в течение 15 минут.`);
+            leadForm.reset(); // Очищаем поля
+        });
+    }
+
+    // 4. АНИМАЦИЯ ПОЯВЛЕНИЯ ПРИ СКРОЛЛЕ (REVEAL)
     const observerOptions = {
-        threshold: 0.15 // Секция появится, когда 15% её площади будет в зоне видимости
+        threshold: 0.15 
     };
 
     const observer = new IntersectionObserver((entries) => {
@@ -51,13 +63,13 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }, observerOptions);
 
-    // Применяем анимацию ко всем секциям и карточкам с классом .reveal
+    // Применяем анимацию ко всем секциям и карточкам
     document.querySelectorAll('.reveal, .section').forEach(el => {
         observer.observe(el);
     });
 });
 
-// 4. ЛОГИКА КВИЗА (Вынесена из DOMContentLoaded, чтобы кнопки в HTML её видели)
+// 5. ЛОГИКА КВИЗА (Глобальная функция)
 window.selectCategory = (cat) => {
     const expert = lawyers.find(l => l.category === cat);
     const resultBox = document.getElementById('quiz-result');
@@ -65,18 +77,17 @@ window.selectCategory = (cat) => {
     if (resultBox && expert) {
         resultBox.style.display = 'block';
         resultBox.innerHTML = `
-            <div style="animation: fadeIn 0.5s ease forwards; padding: 20px; border: 1px solid #C5A059;">
-                <h4 style="color: #C5A059; font-weight: 800; text-transform: uppercase; margin-bottom: 10px;">
+            <div class="result-animate" style="padding: 30px; border: 2px solid #C5A059; background: #0a0a0a;">
+                <h4 style="color: #C5A059; font-weight: 900; text-transform: uppercase; margin-bottom: 15px; letter-spacing: 1px;">
                     Ваш персональный эксперт:
                 </h4>
-                <p style="font-size: 22px; font-weight: 700; margin-bottom: 5px;">${expert.name}</p>
-                <p style="color: #888; margin-bottom: 20px;">${expert.role}</p>
-                <button class="cta-gold" onclick="alert('Заявка отправлена! Мы свяжемся с вами.')">
-                    Записаться к нему
+                <p style="font-size: 24px; font-weight: 900; margin-bottom: 5px; color: #fff;">${expert.name}</p>
+                <p style="color: #888; font-weight: 700; text-transform: uppercase; font-size: 13px; margin-bottom: 25px;">${expert.role}</p>
+                <button class="cta-gold" onclick="document.getElementById('contact').scrollIntoView({behavior: 'smooth'})">
+                    Записаться на прием
                 </button>
             </div>
         `;
-        // Плавно скроллим к результату, чтобы пользователь его увидел
         resultBox.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
     }
 };

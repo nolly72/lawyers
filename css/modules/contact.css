@@ -1,0 +1,50 @@
+.contact-container {
+    max-width: 600px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.contact-subtitle {
+    font-weight: 700;
+    color: #888;
+    margin-bottom: 40px;
+    text-transform: uppercase;
+    font-size: 14px;
+    letter-spacing: 1px;
+}
+
+.premium-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.premium-form .input-group input {
+    width: 100%;
+    background: #111;
+    border: 1px solid #333;
+    padding: 20px;
+    font-size: 16px;
+    font-weight: 800;
+    color: #fff;
+    text-align: left; /* В отличие от калькулятора, тут текст слева */
+    transition: 0.3s;
+}
+
+.premium-form .input-group input:focus {
+    border-color: var(--gold);
+    outline: none;
+}
+
+.full-width {
+    width: 100%;
+    margin-top: 10px;
+}
+
+.form-privacy {
+    font-size: 10px;
+    color: #555;
+    margin-top: 20px;
+    text-transform: uppercase;
+    font-weight: 700;
+}
