@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nolly Lawyers | Элитная юридическая группа</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com" rel="stylesheet">
+</head>
+<body>
+
+    <!-- Шапка сайта -->
+    <header class="hero">
+        <nav>
+            <div class="logo">NOLLY LAWYERS</div>
+            <div class="nav-links">
+                <a href="#about">О нас</a>
+                <a href="#lawyers">Юристы</a>
+                <a href="#quiz">Квиз</a>
+            </div>
+            <button class="cta-gold">Заказать звонок</button>
+        </nav>
+        <div class="hero-content">
+            <h1>Правосудие — это искусство</h1>
+            <p>Премиальная юридическая поддержка для тех, кто ценит результат.</p>
+        </div>
+    </header>
+
+    <!-- Секция с юристами -->
+    <section id="lawyers" class="section">
+        <h2 class="title">Наши эксперты</h2>
+        <div class="lawyers-grid" id="lawyer-list">
+            <!-- Сюда JS вставит карточки -->
+        </div>
+    </section>
+
+    <!-- Квиз-подбор -->
+    <section id="quiz" class="section quiz-bg">
+        <h2 class="title">Найдите своего защитника</h2>
+        <div id="quiz-box" class="quiz-container">
+            <p>В какой сфере возникла сложность?</p>
+            <div class="quiz-buttons">
+                <button onclick="window.selectCategory('army')">Военное право</button>
+                <button onclick="window.selectCategory('family')">Семейные споры</button>
+                <button onclick="window.selectCategory('business')">Бизнес и Налоги</button>
+                <button onclick="window.selectCategory('debts')">Банкротство</button>
+            </div>
+            <div id="quiz-result" class="result-card"></div>
+        </div>
+    </section>
+
+    <!-- Калькулятор пошлины -->
+    <section class="section">
+        <h2 class="title">Калькулятор госпошлины</h2>
+        <div class="calc-container">
+            <input type="number" id="sum-input" placeholder="Введите сумму иска в рублях">
+            <p>Ориентировочная пошлина: <span id="calc-res">0</span> ₽</p>
+        </div>
+    </section>
+
+    <!-- Подключаем логику -->
+    <script type="module" src="js/main.js"></script>
+</body>
+</html>
