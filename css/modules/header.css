@@ -1,20 +1,77 @@
 nav {
-    display: flex; justify-content: space-between; align-items: center;
-    padding: 35px 8%; background: rgba(10, 10, 10, 0.98);
-    position: sticky; top: 0; z-index: 1000;
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center;
+    /* Уменьшаем огромный паддинг на мобилках */
+    padding: clamp(15px, 4vw, 30px) 5%; 
+    background: rgba(10, 10, 10, 0.95);
+    position: sticky; 
+    top: 0; 
+    z-index: 1000;
     border-bottom: 1px solid rgba(197, 160, 89, 0.15);
     backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px); /* Для Safari */
+    width: 100%;
 }
 
 .logo { 
-    color: var(--gold); font-size: 32px; font-weight: 900; 
-    letter-spacing: 4px; text-transform: uppercase;
+    color: var(--gold); 
+    /* Логотип должен уменьшаться, иначе он займет весь экран */
+    font-size: clamp(18px, 5vw, 28px); 
+    font-weight: 900; 
+    letter-spacing: clamp(1px, 1vw, 4px); 
+    text-transform: uppercase;
+    white-space: nowrap; /* Чтобы название не рвалось на две строки */
+}
+
+/* --- НАВИГАЦИЯ ДЛЯ МОБИЛОК --- */
+.nav-links {
+    /* На маленьких экранах прячем текстовые ссылки или делаем их скроллом */
+    display: flex;
+}
+
+@media (max-width: 900px) {
+    .nav-links {
+        display: none; /* В идеале тут нужен бургер-меню */
+        /* Если хочешь оставить их, можно сделать горизонтальный скролл:
+        display: none; 
+        */
+    }
+    
+    /* Кнопку в шапке на мобилках делаем компактнее */
+    .header-btn {
+        padding: 10px 15px !important;
+        font-size: 12px !important;
+    }
 }
 
 .nav-links a { 
-    color: var(--light); text-decoration: none; margin: 0 25px; 
-    font-size: 15px; font-weight: 800; text-transform: uppercase;
+    color: var(--light); 
+    text-decoration: none; 
+    margin: 0 15px; /* Уменьшил отступы, 25px — слишком много */
+    font-size: 14px; 
+    font-weight: 800; 
+    text-transform: uppercase;
     transition: 0.3s ease;
+    white-space: nowrap;
 }
 
-.nav-links a:hover { color: var(--gold); }
+.nav-links a:hover { 
+    color: var(--gold); 
+}
+
+/* Фикс для кнопки заказа звонка в навигации */
+.nav-container .cta-gold {
+    padding: 12px 25px;
+    font-size: 13px;
+    /* Прячем кнопку на очень маленьких экранах, если она мешает логотипу */
+}
+
+@media (max-width: 400px) {
+    .nav-container .cta-gold span {
+        display: none; /* Оставляем только иконку или убираем текст */
+    }
+    .nav-container .cta-gold::before {
+        content: '📞'; /* Вместо текста показываем трубку */
+    }
+}

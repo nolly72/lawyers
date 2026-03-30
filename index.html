@@ -2,32 +2,38 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Meta viewport у тебя правильный, это база для мобилок -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
     <title>Nolly Lawyers | Элитная юридическая группа</title>
-    <!-- Главный файл стилей, который собирает все модули через @import -->
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
     <!-- 1. ШАПКА И ГЛАВНЫЙ ЭКРАН -->
     <header class="hero">
-        <nav>
+        <nav class="nav-container">
             <div class="logo">NOLLY LAWYERS</div>
+            
+            <!-- На мобильных это меню обычно прячут в "гамбургер" или делают скроллом -->
             <div class="nav-links">
                 <a href="#about">О нас</a>
                 <a href="#lawyers">Юристы</a>
                 <a href="#quiz">Квиз</a>
                 <a href="#contact">Контакты</a>
             </div>
-            <button class="cta-gold" onclick="document.getElementById('contact').scrollIntoView({behavior: 'smooth'})">Заказать звонок</button>
+            
+            <button class="cta-gold header-btn" onclick="document.getElementById('contact').scrollIntoView({behavior: 'smooth'})">
+                <span>Заказать звонок</span>
+            </button>
         </nav>
+        
         <div class="hero-content">
             <h1>Правосудие — это искусство</h1>
             <p>Премиальная юридическая поддержка для тех, кто ценит результат.</p>
         </div>
     </header>
 
-    <!-- 2. ПОЧЕМУ МЫ? (Траст-блок) -->
+    <!-- 2. ПОЧЕМУ МЫ? -->
     <section id="about" class="section reveal">
         <h2 class="title">Почему выбирают нас</h2>
         <div class="features-grid">
@@ -54,47 +60,50 @@
     <section id="lawyers" class="section reveal">
         <h2 class="title">Наши эксперты</h2>
         <div class="lawyers-grid" id="lawyer-list">
-            <!-- Сюда JS вставит карточки из data.js -->
+            <!-- Сюда JS вставит карточки -->
         </div>
     </section>
 
     <!-- 4. КВИЗ-ПОДБОР АДВОКАТА -->
     <section id="quiz" class="section reveal">
-        <h2 class="title" style="font-size: 32px;">Найдите своего защитника</h2>
-        <div id="quiz-box" class="quiz-container">
-            <p style="font-weight: 800; text-transform: uppercase; margin-bottom: 20px;">В какой сфере возникла сложность?</p>
-            <div class="quiz-buttons">
-                <button onclick="window.selectCategory('army')">Военное право</button>
-                <button onclick="window.selectCategory('family')">Семейные споры</button>
-                <button onclick="window.selectCategory('business')">Бизнес и Налоги</button>
-                <button onclick="window.selectCategory('debts')">Банкротство</button>
+        <div class="container">
+            <h2 class="title">Найдите своего защитника</h2>
+            <div id="quiz-box" class="quiz-container">
+                <p class="quiz-question">В какой сфере возникла сложность?</p>
+                <div class="quiz-buttons">
+                    <button onclick="window.selectCategory('army')">Военное право</button>
+                    <button onclick="window.selectCategory('family')">Семейные споры</button>
+                    <button onclick="window.selectCategory('business')">Бизнес и Налоги</button>
+                    <button onclick="window.selectCategory('debts')">Банкротство</button>
+                </div>
+                <div id="quiz-result" class="result-card" style="display: none;"></div>
             </div>
-            <!-- Сюда JS выведет результат подбора -->
-            <div id="quiz-result" class="result-card" style="margin-top: 40px; display: none;"></div>
         </div>
     </section>
 
     <!-- 5. КАЛЬКУЛЯТОР ГОСПОШЛИНЫ -->
     <section id="calc" class="section reveal">
-        <h2 class="title" style="font-size: 32px;">Калькулятор пошлины</h2>
+        <h2 class="title">Калькулятор пошлины</h2>
         <div class="calc-container">
-            <input type="number" id="sum-input" placeholder="ВВЕДИТЕ СУММУ ИСКА (₽)">
-            <p>
+            <!-- inputmode="numeric" вызовет цифровую клавиатуру на iPhone/Android -->
+            <input type="number" id="sum-input" inputmode="numeric" placeholder="ВВЕДИТЕ СУММУ ИСКА (₽)">
+            <p class="calc-result-text">
                 Ориентировочная пошлина: <span id="calc-res">0</span> ₽
             </p>
         </div>
     </section>
 
-    <!-- 6. ФОРМА ОБРАТНОЙ СВЯЗИ (Lead Generation) -->
+    <!-- 6. ФОРМА ОБРАТНОЙ СВЯЗИ -->
     <section id="contact" class="section reveal">
         <h2 class="title">Запись на консультацию</h2>
         <div class="contact-container">
-            <p class="contact-subtitle">Оставьте заявку на экспресс-анализ вашего дела. Мы свяжемся с вами в течение 15 минут.</p>
+            <p class="contact-subtitle">Оставьте заявку на экспресс-анализ дела. Мы свяжемся с вами в течение 15 минут.</p>
             <form id="lead-form" class="premium-form">
                 <div class="input-group">
                     <input type="text" id="user-name" placeholder="ВАШЕ ИМЯ" required>
                 </div>
                 <div class="input-group">
+                    <!-- tel тип важен для автозаполнения -->
                     <input type="tel" id="user-phone" placeholder="+7 (___) ___-__-__" required>
                 </div>
                 <button type="submit" class="cta-gold full-width">ОТПРАВИТЬ ЗАЯВКУ</button>
@@ -108,14 +117,16 @@
         <div class="footer-content">
             <div class="footer-brand">
                 <div class="logo">NOLLY LAWYERS</div>
-                <p>Юридический бутик мирового уровня. Бескомпромиссная защита ваших интересов с 2009 года.</p>
+                <p>Юридический бутик мирового уровня. Бескомпромиссная защита с 2009 года.</p>
             </div>
             
             <div class="footer-contacts">
                 <h4>КОНТАКТЫ</h4>
-                <p>Москва-Сити, Башня Федерация, 42 этаж</p>
-                <p class="footer-phone">+7 (495) 000-00-00</p>
-                <p>contact@nollylawyers.ru</p>
+                <address>
+                    <p>Москва-Сити, Башня Федерация, 42 этаж</p>
+                    <p><a href="tel:+74950000000" class="footer-phone">+7 (495) 000-00-00</a></p>
+                    <p>contact@nollylawyers.ru</p>
+                </address>
             </div>
 
             <div class="footer-social">
@@ -133,7 +144,6 @@
         </div>
     </footer>
 
-    <!-- Подключаем логику (обязательно type="module") -->
     <script type="module" src="js/main.js"></script>
 </body>
 </html>

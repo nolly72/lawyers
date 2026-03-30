@@ -2,43 +2,61 @@
     max-width: 600px;
     margin: 0 auto;
     text-align: center;
+    /* Добавляем внутренний отступ, чтобы форма не касалась краев экрана на мобилках */
+    padding: 0 20px;
 }
 
 .contact-subtitle {
     font-weight: 700;
     color: #888;
-    margin-bottom: 40px;
+    margin-bottom: clamp(20px, 5vw, 40px);
     text-transform: uppercase;
-    font-size: 14px;
+    font-size: clamp(12px, 3vw, 14px); /* Чуть уменьшаем на совсем мелких экранах */
     letter-spacing: 1px;
+    line-height: 1.5;
 }
 
 .premium-form {
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    /* Увеличиваем зазор для удобства нажатия пальцем */
+    gap: clamp(10px, 3vw, 20px); 
 }
 
 .premium-form .input-group input {
     width: 100%;
     background: #111;
     border: 1px solid #333;
-    padding: 20px;
-    font-size: 16px;
+    /* Оптимизируем паддинги для мобилок */
+    padding: clamp(15px, 4vw, 20px);
+    /* 16px — минимум, чтобы iOS не зумил страницу при фокусе */
+    font-size: 16px; 
     font-weight: 800;
     color: #fff;
-    text-align: left; /* В отличие от калькулятора, тут текст слева */
+    text-align: left;
     transition: 0.3s;
+    border-radius: 0; /* Убираем дефолтные закругления в Safari */
+    appearance: none; /* Для корректного отображения на iOS */
 }
 
 .premium-form .input-group input:focus {
     border-color: var(--gold);
+    background: #161616; /* Слегка подсвечиваем активное поле */
     outline: none;
+}
+
+/* Стили плейсхолдера, чтобы он выглядел премиально */
+.premium-form .input-group input::placeholder {
+    color: #444;
+    text-transform: uppercase;
+    font-size: 13px;
 }
 
 .full-width {
     width: 100%;
     margin-top: 10px;
+    /* Убедимся, что кнопка в форме имеет достаточную высоту для пальца */
+    min-height: 60px; 
 }
 
 .form-privacy {
@@ -47,4 +65,12 @@
     margin-top: 20px;
     text-transform: uppercase;
     font-weight: 700;
+    line-height: 1.4;
+    /* Чтобы текст не слипался */
+    padding: 0 10px;
+}
+
+/* Фикс для кнопки при нажатии на тачскрине (убираем синее выделение) */
+button, input {
+    -webkit-tap-highlight-color: transparent;
 }

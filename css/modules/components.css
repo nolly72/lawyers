@@ -3,75 +3,91 @@
     background: var(--gold); 
     color: #000; 
     border: none; 
-    padding: 18px 40px;
+    /* Используем clamp для паддингов, чтобы кнопка не была гигантской на маленьких экранах */
+    padding: clamp(14px, 4vw, 18px) clamp(25px, 6vw, 40px);
     font-weight: 900; 
     text-transform: uppercase; 
     cursor: pointer; 
     transition: 0.3s;
+    display: inline-block; /* Чтобы padding работал корректно */
+    width: auto;
 }
 
-.cta-gold:hover { background: #fff; transform: scale(1.05); }
+/* На мобилках убираем hover-эффект transform, так как он может "залипать" при клике пальцем */
+@media (hover: hover) {
+    .cta-gold:hover { background: #fff; transform: scale(1.05); }
+}
 
 /* КОНТЕЙНЕРЫ (КВИЗ И КАЛЬКУЛЯТОР) */
 .quiz-container, .calc-container {
     background: #0f0f0f; 
     border: 2px solid var(--gold);
-    padding: 80px 60px; 
+    /* Уменьшаем огромные внутренние отступы для мобилок */
+    padding: clamp(30px, 10vw, 80px) clamp(15px, 5vw, 60px); 
     max-width: 900px; 
     margin: 0 auto; 
     text-align: center;
+    width: 100%; /* Гарантируем, что не выйдет за границы */
 }
 
-/* ТЕКСТ ПОШЛИНЫ (ДОБАВЛЕНО) */
+/* ТЕКСТ ПОШЛИНЫ */
 .calc-container p {
-    font-size: 26px;
-    font-weight: 900; /* Максимальная жирность */
+    font-size: clamp(18px, 5vw, 26px); /* Адаптивный размер шрифта */
+    font-weight: 900; 
     text-transform: uppercase;
-    letter-spacing: 2px;
-    margin-top: 40px;
+    letter-spacing: 1px;
+    margin-top: 30px;
     color: #fff;
+    line-height: 1.3;
 }
 
 #calc-res {
-    color: var(--gold); /* Золотой акцент на цифру */
-    font-size: 40px;
-    margin: 0 10px;
+    color: var(--gold); 
+    font-size: clamp(30px, 8vw, 40px); /* Цифра должна быть крупной, но в меру */
+    display: inline-block;
+    margin: 5px 10px;
 }
 
 /* КНОПКИ КВИЗА */
 .quiz-buttons { 
     display: grid; 
-    grid-template-columns: 1fr 1fr; 
-    gap: 20px; 
-    margin-top: 40px; 
+    /* По умолчанию 1 колонка для мобилок, на планшетах и ПК — 2 колонки */
+    grid-template-columns: 1fr; 
+    gap: 15px; 
+    margin-top: 30px; 
+}
+
+@media (min-width: 600px) {
+    .quiz-buttons { 
+        grid-template-columns: 1fr 1fr; 
+        gap: 20px;
+    }
 }
 
 .quiz-buttons button {
     background: transparent; 
     border: 1px solid #333; 
     color: #fff;
-    padding: 20px; 
+    padding: clamp(15px, 4vw, 20px); 
     font-weight: 800; 
     cursor: pointer;
     text-transform: uppercase;
     transition: 0.3s;
-}
-
-.quiz-buttons button:hover {
-    border-color: var(--gold);
-    color: var(--gold);
+    font-size: 14px; /* Базовый размер для кнопок квиза */
 }
 
 /* ИНПУТ КАЛЬКУЛЯТОРА */
 input {
     width: 100%; 
-    font-size: 32px; 
+    /* На мобилках 32px — это слишком много, инпут будет обрезаться */
+    font-size: clamp(20px, 6vw, 32px); 
     font-weight: 900; 
-    padding: 25px;
+    padding: clamp(15px, 5vw, 25px);
     background: transparent; 
     border: none; 
-    border-bottom: 4px solid var(--gold);
+    border-bottom: 3px solid var(--gold);
     color: #fff; 
     text-align: center; 
     outline: none;
+    border-radius: 0; /* Убирает скругления в Safari на iPhone */
 }

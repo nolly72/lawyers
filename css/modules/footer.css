@@ -1,22 +1,33 @@
 .premium-footer {
     background: #050505;
-    padding: 80px 8% 40px 8%;
+    /* Адаптивные отступы: меньше на мобилках, больше на десктопе */
+    padding: clamp(40px, 10vw, 80px) 5% clamp(20px, 5vw, 40px) 5%;
     border-top: 1px solid rgba(197, 160, 89, 0.2);
-    margin-top: 100px;
+    margin-top: clamp(50px, 10vw, 100px);
 }
 
 .footer-content {
     display: grid;
-    grid-template-columns: 2fr 1fr 1fr;
-    gap: 60px;
-    margin-bottom: 80px;
+    /* По умолчанию 1 колонка (для мобилок) */
+    grid-template-columns: 1fr;
+    gap: 40px;
+    margin-bottom: clamp(40px, 8vw, 80px);
+}
+
+/* На планшетах и ПК включаем твою раскладку */
+@media (min-width: 992px) {
+    .footer-content {
+        grid-template-columns: 2fr 1fr 1fr;
+        gap: 60px;
+    }
 }
 
 .footer-brand p {
     margin-top: 20px;
     color: #666;
     font-size: 14px;
-    max-width: 350px;
+    /* На мобилках убираем ограничение ширины, чтобы текст был по центру или на всю ширину */
+    max-width: 450px; 
     line-height: 1.6;
     font-weight: 500;
 }
@@ -25,7 +36,7 @@
     color: var(--gold);
     font-size: 14px;
     font-weight: 900;
-    margin-bottom: 25px;
+    margin-bottom: 20px;
     letter-spacing: 2px;
 }
 
@@ -39,22 +50,37 @@
     transition: 0.3s;
 }
 
+/* Телефон должен быть кликабельным и заметным */
 .footer-phone {
     color: var(--light) !important;
-    font-size: 18px !important;
+    font-size: clamp(18px, 5vw, 22px) !important;
+    margin: 10px 0 !important;
 }
 
 .social-links a:hover {
     color: var(--gold);
+    padding-left: 5px; /* Небольшой эффект при наведении */
 }
 
 .footer-bottom {
     border-top: 1px solid #1a1a1a;
     padding-top: 30px;
     display: flex;
-    justify-content: space-between;
+    /* На мобилках копирайт и оферта встанут друг под другом */
+    flex-direction: column;
+    gap: 15px;
+    align-items: center;
+    text-align: center;
     font-size: 10px;
     font-weight: 800;
     color: #444;
     letter-spacing: 1px;
+}
+
+@media (min-width: 768px) {
+    .footer-bottom {
+        flex-direction: row;
+        justify-content: space-between;
+        text-align: left;
+    }
 }

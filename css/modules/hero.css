@@ -1,18 +1,56 @@
 .hero {
-    height: 95vh; display: flex; flex-direction: column;
-    justify-content: center; align-items: center; text-align: center;
-    padding: 0 10%;
-    background: linear-gradient(rgba(0,0,0,0.85), rgba(0,0,0,0.85)), 
-                url('https://images.unsplash.com');
-    background-size: cover; background-attachment: fixed;
+    /* На мобилках 100vh часто глючит из-за адресной строки, 
+       min-height: 90vh — более надежный вариант */
+    min-height: 90vh; 
+    display: flex; 
+    flex-direction: column;
+    justify-content: center; 
+    align-items: center; 
+    text-align: center;
+    padding: 80px 5%; /* Уменьшаем боковые отступы */
+    background: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.9)), 
+                url('https://unsplash.com');
+    background-size: cover; 
+    background-position: center; /* Центрируем фото */
+    
+    /* ВАЖНО: fixed параллакс плохо работает на смартфонах. 
+       Включаем его только для мощных компьютеров */
+    background-attachment: scroll; 
+}
+
+@media (min-width: 1024px) {
+    .hero { background-attachment: fixed; }
 }
 
 .hero h1 { 
-    font-size: 78px; font-weight: 900; font-family: 'Playfair Display', serif;
-    color: var(--gold); margin-bottom: 30px; line-height: 1.1;
+    /* 78px превращаем в гибкий размер от 34px до 78px */
+    font-size: clamp(34px, 8vw, 78px); 
+    font-weight: 900; 
+    font-family: 'Playfair Display', serif;
+    color: var(--gold); 
+    margin-bottom: clamp(15px, 4vw, 30px); 
+    line-height: 1.1;
+    text-transform: uppercase; /* Добавим строгости */
+    letter-spacing: -1px; /* Эффект "дорогой" типографики */
 }
 
 .hero p { 
-    font-size: 26px; font-weight: 500; color: #dfdfdf;
-    max-width: 900px; letter-spacing: 1px;
+    /* 26px на телефоне — это почти заголовок. Уменьшаем до читаемых 16-18px */
+    font-size: clamp(16px, 4vw, 24px); 
+    font-weight: 500; 
+    color: #dfdfdf;
+    max-width: 800px; 
+    letter-spacing: 0.5px;
+    line-height: 1.4;
+    margin: 0 auto;
+}
+
+/* Добавим небольшую анимацию появления для пафоса */
+.hero-content {
+    animation: heroFade 1.5s ease-out;
+}
+
+@keyframes heroFade {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
 }

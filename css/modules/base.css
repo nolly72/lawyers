@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com');
+@import url('https://googleapis.com');
 
 :root {
     --gold: #C5A059;
@@ -7,26 +7,54 @@
     --light: #FFFFFF;
 }
 
-html { scroll-behavior: smooth; }
-* { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Montserrat', sans-serif; }
+html { 
+    scroll-behavior: smooth; 
+}
+
+* { 
+    margin: 0; 
+    padding: 0; 
+    box-sizing: border-box; 
+    font-family: 'Montserrat', sans-serif; 
+}
 
 body {
     background-color: var(--dark);
     color: var(--light);
     -webkit-font-smoothing: antialiased;
-    overflow-x: hidden;
+    /* Важно для мобилок: предотвращает горизонтальный скролл */
+    overflow-x: hidden; 
+    width: 100%;
 }
 
+/* --- СЕКЦИИ --- */
 .section { 
-    padding: 120px 8%; 
+    /* На мобильных 120px — это слишком много, уменьшаем до 60-80px */
+    padding: 80px 5%; 
     opacity: 0; 
-    transform: translateY(40px);
+    transform: translateY(30px);
     transition: all 1.2s ease-out;
 }
 
-.section.visible { opacity: 1; transform: translateY(0); }
+/* Адаптивные отступы для больших экранов */
+@media (min-width: 1024px) {
+    .section { padding: 120px 8%; }
+}
 
+.section.visible { 
+    opacity: 1; 
+    transform: translateY(0); 
+}
+
+/* --- ЗАГОЛОВКИ --- */
 .title { 
-    text-align: center; color: var(--gold); font-size: 52px; 
-    font-weight: 900; margin-bottom: 70px; text-transform: uppercase;
+    text-align: center; 
+    color: var(--gold); 
+    /* 52px на телефоне не поместятся в одну строку, делаем адаптивно через clamp */
+    font-size: clamp(28px, 8vw, 52px); 
+    font-weight: 900; 
+    margin-bottom: clamp(30px, 10vh, 70px); 
+    text-transform: uppercase;
+    line-height: 1.1;
+    word-wrap: break-word; /* Чтобы длинные слова не резали экран */
 }

@@ -1,34 +1,62 @@
+/* Добавь это в самое начало файла CSS к остальным @import */
+@import url('https://googleapis.com');
+
 .features-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 40px;
+    /* Увеличим минимальную ширину до 250px, чтобы на мобилках они встали строго в 1 колонку, 
+       а на планшетах — в 2. Так текст не будет "слипаться" */
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    /* Уменьшаем гэп для мобилок, чтобы не тратить место */
+    gap: clamp(20px, 4vw, 40px);
     text-align: center;
 }
 
 .feature-item {
-    padding: 30px;
+    padding: clamp(20px, 5vw, 40px); /* Адаптивный внутренний отступ */
     border: 1px solid rgba(197, 160, 89, 0.1);
     transition: 0.4s;
+    background: rgba(255, 255, 255, 0.02); /* Легкий фон для объема */
 }
 
-.feature-item:hover {
-    border-color: var(--gold);
-    background: rgba(197, 160, 89, 0.03);
+/* На мобилках hover работает плохо (залипает), поэтому оставим его только для мышки */
+@media (hover: hover) {
+    .feature-item:hover {
+        border-color: var(--gold);
+        background: rgba(197, 160, 89, 0.05);
+        transform: translateY(-5px); /* Добавим легкий подъем */
+    }
 }
 
 .feature-num {
     display: block;
-    font-size: 56px;
+    /* 56px слишком много для узких экранов, используем clamp */
+    font-size: clamp(42px, 10vw, 56px);
     font-weight: 900;
     color: var(--gold);
-    margin-bottom: 15px;
-    font-family: 'Playfair Display', serif;
+    margin-bottom: 10px;
+    /* Теперь шрифт будет работать, если добавил @import сверху */
+    font-family: 'Playfair Display', serif; 
+    line-height: 1;
 }
 
 .feature-item p {
-    font-size: 14px;
+    /* На мобилках 14px — ок, но сделаем чуть четче */
+    font-size: clamp(12px, 3vw, 14px);
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 1px;
-    color: #888;
+    color: #aaa; /* Сделал чуть светлее для читаемости на темном фоне */
+    line-height: 1.4;
+}
+
+/* Фикс: если на экране помещается только одна колонка, убираем лишние отступы */
+@media (max-width: 480px) {
+    .features-grid {
+        gap: 15px;
+    }
+    .feature-item {
+        border-left: none;
+        border-right: none;
+        border-bottom: 1px solid rgba(197, 160, 89, 0.1);
+    }
 }
